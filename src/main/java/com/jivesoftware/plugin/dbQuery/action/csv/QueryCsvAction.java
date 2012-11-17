@@ -3,6 +3,7 @@ package com.jivesoftware.plugin.dbQuery.action.csv;
 import au.com.bytecode.opencsv.CSVWriter;
 import com.jivesoftware.community.action.admin.AdminActionSupport;
 import com.jivesoftware.plugin.dbQuery.dao.query.QueryExecute;
+import com.jivesoftware.util.FastDateFormat;
 import com.jivesoftware.util.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -68,7 +69,10 @@ public class QueryCsvAction extends AdminActionSupport {
      * @return the csv export filename for the current query results
      */
     public String getDatabaseCSVFilename() {
-        return StringUtils.makeURLSafe(getText("dbQuery.csv.filename")) + ".csv";
+        FastDateFormat fdf = FastDateFormat.getInstance("yyyy-MM-dd");
+        String timestamp = fdf.format(new Date());
+
+        return StringUtils.makeURLSafe(timestamp + getText("dbQuery.csv.filename")) + ".csv";
     }
 
     /**
